@@ -1,9 +1,13 @@
 # How to setup/use virt env
-Windows: `venv_name\Scripts\activate`
-Mac/Linux: `source venv_name/bin/activate`
+Create: `python3 -m venv myvirtenv`
+Windows: `myvirtenv\Scripts\activate`
+Mac/Linux: `source myvirtenv/bin/activate`
 Leave: `deactivate`
 `pip freeze > requirements.txt`
 `pip install -r requirements.txt`
+
+# Run:
+`python3 Collab\ Notebooks/whisperx_speaker_diarization.py`
 
 # Test 1
 - `python aaiTest.py > output.txt`
@@ -14,7 +18,7 @@ Leave: `deactivate`
 https://www.youtube.com/watch?v=SAIsk0i7KgU&t=474s&ab_channel=PromptEngineering
 
 # Convert youtube to mp3
-`yt-dlp -f bestaudio -x --audio-format mp3 --audio-quality 0 --add-metadata https://www.youtube.com/watch?v=AL2IkW4JWl4`
+`yt-dlp -ciwx -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --output "%(title)s - %(uploader)s.%(ext)s"  https://www.youtube.com/watch?v=AL2IkW4JWl4`
 
 # Convert mp3 to txt tracnscript 
 https://github.com/openai/whisper
