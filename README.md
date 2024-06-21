@@ -1,10 +1,10 @@
 # Convert audio to srt:
-- `cd BATCH-FOLDER-AUDIO-TO-SRT`
+- `cd batch-folder-audio-to-srt`
 - Run: `python3 audio-to-srt.py "/mnt/c/filepath/to/audio.m4a"` to convert .m4a audio to srt file.
 - .srt file will be outputted to ./SrtFiles in same location where you ran the script.
 
 # Batch convert all audio files in folder to srt:
-- `cd BATCH-FOLDER-AUDIO-TO-SRT`
+- `cd batch-folder-audio-to-srt`
 - Run: `python3 run-for-folder.py`
 - Input folder hardcoded in script.
 - .srt file will be outputted to ./SrtFiles in same location where you ran the script.
