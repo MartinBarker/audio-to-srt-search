@@ -1,3 +1,31 @@
+# Convert audio to srt:
+- `cd BATCH-FOLDER-AUDIO-TO-SRT`
+- Run: `python3 audio-to-srt.py "/mnt/c/filepath/to/audio.m4a"` to convert .m4a audio to srt file.
+- .srt file will be outputted to ./SrtFiles in same location where you ran the script.
+
+# Batch convert all audio files in folder to srt:
+- `cd BATCH-FOLDER-AUDIO-TO-SRT`
+- Run: `python3 run-for-folder.py`
+- Input folder hardcoded in script.
+- .srt file will be outputted to ./SrtFiles in same location where you ran the script.
+
+# Upload single srt file to algolia database
+- cd `upload-srt-to-algolia`
+- Fill out `.env` file based off `.env-template`
+- Run `python3 test.py` to test out connection.
+- Run `python3 upload-srt-to-algolia.py "/mnt/c/Users/marti/My Cool Title [htUDG4re1u4]_subtitles.srt"` to convert .srt file to json and upload to algolia DB.
+
+---------------------------------------------
+# Benchmarks
+- new-auth-to-srt-fast
+    - run with `python3 convert.py "/mnt/d/Jerma985 Streams Audio/Livestream： TF2⧸CS：GO： April 14, 2012 (Pre Recorded) - Jerma985.m4a"`
+    - "Livestream： TF2⧸CS：GO： April 14, 2012 (Pre Recorded) - Jerma985.m4a" = 1:18:43 long
+    - Took 18:27 to generate srt file.
+    - For every minute of input audio, the script processes it in approximately 14.07 seconds.
+    - So the 01:58:14 audio file (60+58=118 minutes total) "TF2⧸Tribes： Ascend Livestream! (Pre Recorded) [3qWKO3LVCxc].m4a" should take 118minutes*14.07 = 1660.26 seconds, which is 27.671 minutes.
+    - `python3 convert.py "/mnt/d/Jerma985 Streams Audio/TF2⧸Tribes： Ascend Livestream! (Pre Recorded) [3qWKO3LVCxc].m4a"`
+
+
 # How to setup/use virt env
 Windows: `venv_name\Scripts\activate`
 Mac/Linux: `source venv_name/bin/activate`
