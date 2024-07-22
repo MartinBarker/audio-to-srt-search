@@ -1,3 +1,7 @@
 .vscode
 .env
 myvirtualenv
+BATCH-FOLDER-AUDIO-TO-SRT/SrtFiles/
+venv2
+BATCH-FOLDER-AUDIO-TO-SRT/venv/
+BATCH-FOLDER-AUDIO-TO-SRT/SrtFiles/

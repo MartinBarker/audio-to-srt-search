@@ -1,6 +1,9 @@
 # Convert audio to srt:
 - `cd batch-folder-audio-to-srt`
-- Run: `python3 audio-to-srt.py "/mnt/c/filepath/to/audio.m4a"` to convert .m4a audio to srt file.
+- `python3 -m venv venv`
+- `source venv/bin/activate`
+- `pip install git+https://github.com/openai/whisper.git`
+- `python3 audio-to-srt.py "/mnt/d/Jerma985 Streams Audio/Jerma Stream - Cryptark [M0pPT3FXIhI].m4a"` to convert .m4a audio to srt file.
 - .srt file will be outputted to ./SrtFiles in same location where you ran the script.
 
 # Batch convert all audio files in folder to srt:
@@ -10,10 +13,16 @@
 - .srt file will be outputted to ./SrtFiles in same location where you ran the script.
 
 # Upload single srt file to algolia database
+- Use .env-template to fill out .env file using write access api key (https://dashboard.algolia.com/account/api-keys/all?applicationId=A91VDJYTFI)
+- Open a new linux terminal
 - cd `upload-srt-to-algolia`
 - Fill out `.env` file based off `.env-template`
 - Run `python3 test.py` to test out connection.
-- Run `python3 upload-srt-to-algolia.py "/mnt/c/Users/marti/My Cool Title [htUDG4re1u4]_subtitles.srt"` to convert .srt file to json and upload to algolia DB.
+- Run `python3 upload-srt-to-algolia.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/Jerma Stream - Doom (2016) [2K67t1mya30]_subtitles.srt"` to convert .srt file to json and upload to algolia DB.
+# Figure out how many quotes would be uploaded if you uploaded an entire folder:
+- Run `python3 find_quote_count.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/"`
+# Upload entire folder to algolia
+- Run `python3 upload_folder_to_algolia.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/"`
 
 ---------------------------------------------
 # Benchmarks
@@ -44,7 +53,7 @@ https://www.youtube.com/watch?v=SAIsk0i7KgU&t=474s&ab_channel=PromptEngineering
 # Convert youtube to mp3
 `yt-dlp -f bestaudio -x --audio-format mp3 --audio-quality 0 --add-metadata https://www.youtube.com/watch?v=AL2IkW4JWl4`
 
-# Convert mp3 to txt tracnscript 
+# Convert mp3 to txt transcript 
 https://github.com/openai/whisper
 `pip install -U openai-whisper`
 `sudo apt update && sudo apt install ffmpeg`

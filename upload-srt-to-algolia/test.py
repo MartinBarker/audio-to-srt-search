@@ -2,7 +2,8 @@ import os
 from dotenv import load_dotenv
 from algoliasearch.search_client import SearchClient
 
-
+# Load environment variables from .env file
+load_dotenv()
 
 # Algolia search client
 ALGOLIA_APP_ID = os.getenv('ALGOLIA_APP_ID')
@@ -19,5 +20,3 @@ res = index.save_objects([
 
 print("added items.")
 print(res)
-
-

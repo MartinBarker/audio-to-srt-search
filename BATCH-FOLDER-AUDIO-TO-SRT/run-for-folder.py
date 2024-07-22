@@ -1,10 +1,9 @@
 import os
 import subprocess
-from datetime import datetime
 
 # Define the input and output folder locations
-inputFolder = "/mnt/d/Jerma985 Streams Audio"
-outputFolder = "./SrtFiles"  # Assuming this is where the SRT files are stored
+inputFolder = "/mnt/y/Jerma985 Streams Audio"
+outputFolder = "./SrtFiles"
 
 # Function to get the creation time of a file
 def get_creation_time(file_path):
@@ -13,8 +12,8 @@ def get_creation_time(file_path):
 # Get a list of all .m4a audio files in the input folder
 audio_files = [os.path.join(inputFolder, f) for f in os.listdir(inputFolder) if f.endswith('.m4a') and os.path.isfile(os.path.join(inputFolder, f))]
 
-# Sort the audio files by their creation time (oldest first)
-audio_files.sort(key=get_creation_time)
+# Sort the audio files by their creation time (most recent first)
+audio_files.sort(key=get_creation_time, reverse=False)  # CHANGE REVERSE=FALSE FOR OLDEST FIRST ORDER
 
 # Iterate through each audio file and call the audio-to-srt.py script
 for audio_file in audio_files:
@@ -27,8 +26,9 @@ for audio_file in audio_files:
         continue
 
     print(f"No existing SRT file found for: {audio_file}, proceeding with conversion")
-    result = subprocess.run(['python3', 'audio-to-srt.py', audio_file], text=True)
-    if result.returncode == 0:
+
+    try:
+        result = subprocess.run(['python', 'audio-to-srt.py', audio_file], capture_output=True, text=True, check=True)
         print(f"Successfully processed: {audio_file}")
-    else:
-        print(f"Error processing {audio_file}: {result.stderr}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error processing {audio_file}: {e.stderr}")
