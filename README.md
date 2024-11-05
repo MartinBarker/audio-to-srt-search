@@ -1,4 +1,4 @@
-# Convert audio to srt:
+## Convert audio to srt:
 - `cd batch-folder-audio-to-srt`
 - `python3 -m venv venv`
 - `source venv/bin/activate`
@@ -6,13 +6,13 @@
 - `python3 audio-to-srt.py "/mnt/d/Jerma985 Streams Audio/Jerma Stream - Cryptark [M0pPT3FXIhI].m4a"` to convert .m4a audio to srt file.
 - .srt file will be outputted to ./SrtFiles in same location where you ran the script.
 
-# Batch convert all audio files in folder to srt:
+## Batch convert all audio files in folder to srt:
 - `cd batch-folder-audio-to-srt`
 - Run: `python3 run-for-folder.py`
 - Input folder hardcoded in script.
 - .srt file will be outputted to ./SrtFiles in same location where you ran the script.
 
-# Upload single srt file to algolia database
+## Upload single srt file to algolia database
 - Use .env-template to fill out .env file using write access api key (https://dashboard.algolia.com/account/api-keys/all?applicationId=A91VDJYTFI)
 - Open a new linux terminal
 - cd `upload-srt-to-algolia`
@@ -24,8 +24,7 @@
 # Upload entire folder to algolia
 - Run `python3 upload_folder_to_algolia.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/"`
 
----------------------------------------------
-# Benchmarks
+## Benchmarks
 - new-auth-to-srt-fast
     - run with `python3 convert.py "/mnt/d/Jerma985 Streams Audio/Livestream： TF2⧸CS：GO： April 14, 2012 (Pre Recorded) - Jerma985.m4a"`
     - "Livestream： TF2⧸CS：GO： April 14, 2012 (Pre Recorded) - Jerma985.m4a" = 1:18:43 long
@@ -35,35 +34,24 @@
     - `python3 convert.py "/mnt/d/Jerma985 Streams Audio/TF2⧸Tribes： Ascend Livestream! (Pre Recorded) [3qWKO3LVCxc].m4a"`
 
 
-# How to setup/use virt env
+## How to setup/use virt env
 Windows: `venv_name\Scripts\activate`
 Mac/Linux: `source venv_name/bin/activate`
 Leave: `deactivate`
 `pip freeze > requirements.txt`
 `pip install -r requirements.txt`
 
-# Test 1
-- `python aaiTest.py > output.txt`
-
-# Test 2
-- `python whisperx_example.py`
-----------------------------------
-https://www.youtube.com/watch?v=SAIsk0i7KgU&t=474s&ab_channel=PromptEngineering
-
-# Convert youtube to mp3
+## Convert youtube to mp3
 `yt-dlp -f bestaudio -x --audio-format mp3 --audio-quality 0 --add-metadata https://www.youtube.com/watch?v=AL2IkW4JWl4`
 
-# Convert mp3 to txt transcript 
+## Convert mp3 to txt transcript 
 https://github.com/openai/whisper
 `pip install -U openai-whisper`
 `sudo apt update && sudo apt install ffmpeg`
 `whisper audio.mp3 --model medium`
 `python3 -m whisper jerma\ GROWLS\ at\ chat\ and\ has\ a\ meltdown\ \[AL2IkW4JWl4\].mp3 --model medium`
 
-# Convert audio to transcript with speaker identification
-`python aaiTest.py > output.txt`
-
-# WhisperX Diarisation
+## WhisperX Diarization
 - https://github.com/m-bain/whisperX
 1. Install Conda win10: https://docs.conda.io/projects/miniconda/en/latest/
 2. Init conda.exe: https://conda.io/projects/conda/en/latest/user-guide/getting-started.html
