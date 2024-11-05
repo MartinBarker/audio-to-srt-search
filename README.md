@@ -1,60 +1,143 @@
-## Convert audio to srt:
-- `cd batch-folder-audio-to-srt`
-- `python3 -m venv venv`
-- `source venv/bin/activate`
-- `pip install git+https://github.com/openai/whisper.git`
-- `python3 audio-to-srt.py "/mnt/d/Jerma985 Streams Audio/Jerma Stream - Cryptark [M0pPT3FXIhI].m4a"` to convert .m4a audio to srt file.
-- .srt file will be outputted to ./SrtFiles in same location where you ran the script.
+# Audio to SRT Conversion and Algolia Upload Guide
 
-## Batch convert all audio files in folder to srt:
-- `cd batch-folder-audio-to-srt`
-- Run: `python3 run-for-folder.py`
-- Input folder hardcoded in script.
-- .srt file will be outputted to ./SrtFiles in same location where you ran the script.
+## Audio to SRT Conversion
 
-## Upload single srt file to algolia database
-- Use .env-template to fill out .env file using write access api key (https://dashboard.algolia.com/account/api-keys/all?applicationId=A91VDJYTFI)
-- Open a new linux terminal
-- cd `upload-srt-to-algolia`
-- Fill out `.env` file based off `.env-template`
-- Run `python3 test.py` to test out connection.
-- Run `python3 upload-srt-to-algolia.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/Jerma Stream - Doom (2016) [2K67t1mya30]_subtitles.srt"` to convert .srt file to json and upload to algolia DB.
-# Figure out how many quotes would be uploaded if you uploaded an entire folder:
-- Run `python3 find_quote_count.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/"`
-# Upload entire folder to algolia
-- Run `python3 upload_folder_to_algolia.py "/mnt/c/Users/marti/Desktop/statusJerma/allSrt/"`
+### Convert a single audio file to SRT:
+1. Navigate to the project directory:
+   ```
+   cd batch-folder-audio-to-srt
+   ```
+2. Set up a virtual environment:
+   ```
+   python3 -m venv venv
+   source venv/bin/activate  # For Linux/Mac
+   ```
+   *For Windows:*
+   ```
+   venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```
+   pip install git+https://github.com/openai/whisper.git
+   ```
+4. Convert an audio file (`.m4a`) to an SRT subtitle file:
+   ```
+   python3 audio-to-srt.py "/path/to/audio/file.m4a"
+   ```
+5. The generated `.srt` file will be saved in the `./SrtFiles` directory where the script is executed.
+
+### Batch convert all audio files in a folder to SRT:
+1. Navigate to the project directory:
+   ```
+   cd batch-folder-audio-to-srt
+   ```
+2. Run the batch conversion script:
+   ```
+   python3 run-for-folder.py
+   ```
+   *Note:* The input folder is hardcoded in the script. All SRT files will be saved to the `./SrtFiles` directory.
+
+---
+
+## Upload SRT to Algolia Database
+
+### Upload a single SRT file to Algolia:
+1. Use the `.env-template` to create and fill out a `.env` file, including your Algolia write access API key (find it [here](https://dashboard.algolia.com/account/api-keys/all?applicationId=A91VDJYTFI)).
+2. Navigate to the `upload-srt-to-algolia` directory:
+   ```
+   cd upload-srt-to-algolia
+   ```
+3. Run a connection test:
+   ```
+   python3 test.py
+   ```
+4. Upload the SRT file:
+   ```
+   python3 upload-srt-to-algolia.py "/path/to/subtitles.srt"
+   ```
+
+### Upload an entire folder to Algolia:
+1. Run the following script to check the number of quotes that would be uploaded:
+   ```
+   python3 find_quote_count.py "/path/to/srt/folder/"
+   ```
+2. To upload all SRT files from a folder:
+   ```
+   python3 upload_folder_to_algolia.py "/path/to/srt/folder/"
+   ```
+
+---
 
 ## Benchmarks
-- new-auth-to-srt-fast
-    - run with `python3 convert.py "/mnt/d/Jerma985 Streams Audio/Livestream： TF2⧸CS：GO： April 14, 2012 (Pre Recorded) - Jerma985.m4a"`
-    - "Livestream： TF2⧸CS：GO： April 14, 2012 (Pre Recorded) - Jerma985.m4a" = 1:18:43 long
-    - Took 18:27 to generate srt file.
-    - For every minute of input audio, the script processes it in approximately 14.07 seconds.
-    - So the 01:58:14 audio file (60+58=118 minutes total) "TF2⧸Tribes： Ascend Livestream! (Pre Recorded) [3qWKO3LVCxc].m4a" should take 118minutes*14.07 = 1660.26 seconds, which is 27.671 minutes.
-    - `python3 convert.py "/mnt/d/Jerma985 Streams Audio/TF2⧸Tribes： Ascend Livestream! (Pre Recorded) [3qWKO3LVCxc].m4a"`
 
+### Processing Speed Example:
+- **File:** "Livestream: TF2/CS:GO: April 14, 2012 (Pre Recorded) - Jerma985.m4a" (Length: 1:18:43)
+- **Time Taken:** 18 minutes 27 seconds
+- **Processing Speed:** 14.07 seconds per minute of audio
 
-## How to setup/use virt env
-Windows: `venv_name\Scripts\activate`
-Mac/Linux: `source venv_name/bin/activate`
-Leave: `deactivate`
-`pip freeze > requirements.txt`
-`pip install -r requirements.txt`
+Estimate for processing a longer file:
+- **File Length:** 1:58:14 (118 minutes)
+- **Estimated Time:** 27.67 minutes
+- Example:
+   ```
+   python3 convert.py "/path/to/long/audiofile.m4a"
+   ```
 
-## Convert youtube to mp3
-`yt-dlp -f bestaudio -x --audio-format mp3 --audio-quality 0 --add-metadata https://www.youtube.com/watch?v=AL2IkW4JWl4`
+---
 
-## Convert mp3 to txt transcript 
-https://github.com/openai/whisper
-`pip install -U openai-whisper`
-`sudo apt update && sudo apt install ffmpeg`
-`whisper audio.mp3 --model medium`
-`python3 -m whisper jerma\ GROWLS\ at\ chat\ and\ has\ a\ meltdown\ \[AL2IkW4JWl4\].mp3 --model medium`
+## Virtual Environment Setup Guide
 
-## WhisperX Diarization
-- https://github.com/m-bain/whisperX
-1. Install Conda win10: https://docs.conda.io/projects/miniconda/en/latest/
-2. Init conda.exe: https://conda.io/projects/conda/en/latest/user-guide/getting-started.html
-3. Follow steps: https://github.com/m-bain/whisperX?tab=readme-ov-file#1-create-python310-environment
-4. make sure ffmpeg works from command line
-ex: compute_type="int8"
+### Setting up and using a virtual environment:
+1. Activate the environment:
+   - **Windows:**
+     ```
+     venv_name\Scripts\activate
+     ```
+   - **Mac/Linux:**
+     ```
+     source venv_name/bin/activate
+     ```
+2. Deactivate the environment:
+   ```
+   deactivate
+   ```
+3. Manage dependencies:
+   - Freeze installed dependencies to a file:
+     ```
+     pip freeze > requirements.txt
+     ```
+   - Install dependencies from a file:
+     ```
+     pip install -r requirements.txt
+     ```
+
+---
+
+## Convert YouTube to MP3
+Download and convert YouTube videos to high-quality MP3:
+```
+yt-dlp -f bestaudio -x --audio-format mp3 --audio-quality 0 --add-metadata https://www.youtube.com/watch?v=AL2IkW4JWl4
+```
+
+---
+
+## Convert MP3 to Text Transcript
+
+1. Install Whisper:
+   ```
+   pip install -U openai-whisper
+   sudo apt update && sudo apt install ffmpeg
+   ```
+2. Convert MP3 to text:
+   ```
+   whisper audio.mp3 --model medium
+   ```
+
+---
+
+## WhisperX Diarization (Speaker Segmentation)
+
+1. Install [Conda](https://docs.conda.io/projects/miniconda/en/latest/).
+2. Initialize Conda: [Getting Started](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html).
+3. Follow the steps for installing WhisperX: [WhisperX](https://github.com/m-bain/whisperX#1-create-python310-environment).
+4. Ensure `ffmpeg` is installed and accessible from the command line.
